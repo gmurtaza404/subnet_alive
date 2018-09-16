@@ -45,11 +45,12 @@ def mergeFiles(path_name,root_working_directory):
         writer.writerow(["IP"] + all_files)
         for row in final_data:
             writer.writerow(row)
-        
+
+    return file_name.split("/")[1]    
     #print super_set
 
     
-def check_aliveness(whitelist_file,TCP_CHECK = True,UDP_CHECK =False,ICMP_ECHO_CHECK=True):
+def check_aliveness(whitelist_file,TCP_CHECK = False,UDP_CHECK =False,ICMP_ECHO_CHECK=False):
     # run zmap on listed ports
     root_working_directory = os.getcwd()
     
@@ -75,7 +76,7 @@ def check_aliveness(whitelist_file,TCP_CHECK = True,UDP_CHECK =False,ICMP_ECHO_C
     if ICMP_ECHO_CHECK:
         os.chdir(path_name)
         os.system("echo \"Running ICMP scans...\"")
-        command = "sudo zmap --output-file={}.csv --whitelist-file=../{} --probe-module=icmp_echoscan".format("ICMP_ECHO",whitelist_file)
+        command = "sudo zmap --output-file={}.csv --whitelist-file=../{} --probe-module=icmp_echoscan".format("icmp_echo",whitelist_file)
         os.system(command)
         
     os.chdir("..")
@@ -84,12 +85,12 @@ def check_aliveness(whitelist_file,TCP_CHECK = True,UDP_CHECK =False,ICMP_ECHO_C
         # need to check on better port?
         os.chdir(path_name)
         os.system("echo \"Running UDP scans...\"")
-        command = "sudo zmap -M udp -p 33470 --output-file={}.csv --whitelist-file=../{} -N 100".format("UDP_33470",whitelist_file)
+        command = "sudo zmap -M udp -p 33470 --output-file={}.csv --whitelist-file=../{} -N 100".format("udp_33470",whitelist_file)
         os.system(command)
 
     os.chdir(root_working_directory)
     # merge all the files
-    mergeFiles(path_name,root_working_directory)
+    return mergeFiles(path_name,root_working_directory)
     print "Done..."
     
     #print tcp_ports

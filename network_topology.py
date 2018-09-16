@@ -3,6 +3,7 @@
 #imports
 import resolve
 import aliveIps
+import findPaths
 import argparse
 
 
@@ -29,9 +30,12 @@ def main():
     args = parser.parse_args()
 
     #actual pipeline
-    filename = resolve.resolve_domain(args.domain_name)
-    if filename != "failed":
-        aliveIps.check_aliveness(filename)
+    allocated_subnets = resolve.resolve_domain(args.domain_name)
+    
+    if allocated_subnets != "failed":
+        aliveness_report = aliveIps.check_aliveness(allocated_subnets)
+        findPaths.findPaths(aliveness_report)
+        print "Done..."
     else:
         print "Invalid Domain name"
         exit(1)
