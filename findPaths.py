@@ -1,10 +1,25 @@
+# help
+"""
+    To run this tool independently...
+    1. Type python to open python shell
+    2. import findPaths
+    3. findPaths.findPaths([aliveness_file_name])
+
+    This script traces path to all the ips in the file, it also takes into account the information,
+    regarding the open ports. For example, if an IP is responsive on port 80 only, so this scrip will
+    probe to that IP using tcptraceroute on port 80. This script pipes out all the reports of the
+    the different probes into txt files in /domain_name/paths directory
+"""
+#dependencies
+"""
+    To use install pandas, traceroute, and tcptraceroute
+    sudo pip install pandas
+    sudo apt-get install traceroute
+    sudo apt-get install tcptraceroute
+"""
 #imports
 import os
 import pandas as pd
-num_hops = 30  # default
-
-
-aliveness_report = "nust.edu.pk_ip_aliveness_report.csv"
 
 def protocol_aliveness(row):
     temp_list = []
@@ -23,7 +38,15 @@ def alive_tcp_ports(row):
             temp_list.append(key.split("_")[1])
     return list(set(temp_list))
 
-def findPaths(aliveness_report,num_hops = 30):
+"""
+    @params
+        string aliveness_report (File that contains the information which ips are alive and are responsive
+                                    on which ports, too see the see).
+    @returns
+        return path of the folder which contains all the txt files.
+"""
+
+def findPaths(aliveness_report):
     root_directory = os.getcwd()
     ret_path = ""
     if not os.path.exists("tmp"):

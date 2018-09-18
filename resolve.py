@@ -52,7 +52,18 @@ def write_to_file(ip_ranges, domain_name):
                 f.write("{}\n".format(str(ip_sub)))  
     os.chdir("..")
     return filename
-
+"""
+    @params
+        1. string domain_name (Name of the domain you want to probe).
+    @returns
+        returns name of the whitelist file, file contents would be in format
+            IP/SUB_NET_SIZE
+            IP/SUB_NET_SIZE
+            .
+            .
+            ...
+        with name "{domain_name}_whitelist.txt
+"""
 def resolve_domain(domain_name):
     print "Finding the ip of the domain name"
     try:

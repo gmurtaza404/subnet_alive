@@ -1,8 +1,23 @@
-# this script reads path files and make a graph
+# help
+"""
+    To run this tool independently...
+    1. Type python to open python shell
+    2. import parseFiles
+    3. parseFiles.check_aliveness([path])
+
+    for example, if you want a visual representation of the traceroute paths, you can pipe the output
+    of your traceroutes in a file, this tool will parse them and create an intermediate representation
+    and then use graphviz to generate a pdf file.
+"""
+
+#dependencies
+"""
+    To use install graphviz
+        sudo pip install graphviz
+"""
 
 #imports
 import os
-import socket
 import re
 import socket
 from graphviz import Digraph
@@ -10,7 +25,6 @@ import os
 
 
 #globals
-#path = "/home/murtaza/Documents/imProject/subnet_alive/tmp/nust.edu.pk/paths"
 global_graph = {}
 
 def my_ip():
@@ -83,7 +97,14 @@ def generate_graph(path):
         for dest in global_graph[key]:
             g.edge(key, dest)
     g.view()
-
+"""
+    @params
+        string path (path to the directory that contains traceroute output files)
+    @outputs
+        none
+    But this script generates two files in the temp folder, one is a graph representation that graphviz
+    understand, and secondly it generates a pdf file that has the visual representation of the graph.
+"""
 def make_graph(path):
     print "parsing files..."
     # assuming that this directory contains valid and relevant files only.
@@ -97,6 +118,3 @@ def make_graph(path):
         add_to_global_graph(temp_representation)
     print global_graph
     generate_graph(path)
-
-
-#make_graph(path)

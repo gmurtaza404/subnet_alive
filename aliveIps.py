@@ -76,7 +76,11 @@ def mergeFiles(path_name,root_working_directory):
         3.bool UDP_CHECK (whether you want to probe with udp packets or not).
         3.bool ICMP_ECHO_CHECK (whether you want to probe with icmp_echo packets or not).
     @returns string
-        Name of the final generated file.
+        Name of the final generated file. The generated file is in a csv format with following
+            1.Column Headers
+                IP,ICMP,80_tcp, ...... 
+            2.Data
+                A.B.C.D,0,1,0,1,1,1 ......
 """
 def check_aliveness(whitelist_file,TCP_CHECK,UDP_CHECK,ICMP_ECHO_CHECK):
     # run zmap on listed ports
