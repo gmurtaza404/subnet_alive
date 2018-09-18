@@ -4,6 +4,7 @@
 import resolve
 import aliveIps
 import findPaths
+import parseFiles
 import argparse
 
 
@@ -33,8 +34,10 @@ def main():
     allocated_subnets = resolve.resolve_domain(args.domain_name)
     
     if allocated_subnets != "failed":
-        aliveness_report = aliveIps.check_aliveness(allocated_subnets)
-        findPaths.findPaths(aliveness_report)
+        aliveness_report = aliveIps.check_aliveness(allocated_subnets,False,False,False)
+        path = findPaths.findPaths(aliveness_report)
+        print path
+        #parseFiles.make_graph(path)
         print "Done..."
     else:
         print "Invalid Domain name"

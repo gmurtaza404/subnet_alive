@@ -19,8 +19,9 @@ def mergeFiles(path_name,root_working_directory):
     all_files = []
     data = {}
     for fs in os.listdir(os.getcwd()):
-        with open(fs, "rb") as f:
-            data[fs.split(".")[0]] = f.read().split("\n")
+        if fs.endswith(".csv"):
+            with open(fs, "rb") as f:
+                data[fs.split(".")[0]] = f.read().split("\n")
     #print data
     # make a super set of all the ips
     super_set = []
@@ -50,7 +51,7 @@ def mergeFiles(path_name,root_working_directory):
     #print super_set
 
     
-def check_aliveness(whitelist_file,TCP_CHECK = False,UDP_CHECK =False,ICMP_ECHO_CHECK=False):
+def check_aliveness(whitelist_file,TCP_CHECK,UDP_CHECK,ICMP_ECHO_CHECK):
     # run zmap on listed ports
     root_working_directory = os.getcwd()
     
@@ -72,7 +73,8 @@ def check_aliveness(whitelist_file,TCP_CHECK = False,UDP_CHECK =False,ICMP_ECHO_
             os.system(command)
     os.chdir("..")
 
-    
+    print TCP_CHECK,ICMP_ECHO_CHECK,UDP_CHECK
+    """
     if ICMP_ECHO_CHECK:
         os.chdir(path_name)
         os.system("echo \"Running ICMP scans...\"")
@@ -90,6 +92,7 @@ def check_aliveness(whitelist_file,TCP_CHECK = False,UDP_CHECK =False,ICMP_ECHO_
 
     os.chdir(root_working_directory)
     # merge all the files
+    """
     return mergeFiles(path_name,root_working_directory)
     print "Done..."
     
