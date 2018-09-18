@@ -3,6 +3,7 @@ Description:
     This tool takes in a domain name and generates a rough topology of paths to that domain.
     
 Dependencies:
+    
     1. resolve.py
         sudo pip install ipwhois
             dependencies ->sudo pip install dnspython
