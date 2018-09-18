@@ -49,7 +49,7 @@ def write_to_file(ip_ranges, domain_name):
         for ip_range in ip_ranges:
             for ip_sub in ip_range:
                 ip_sub = ip_sub.replace(" ", "")
-                f.write("{}\n".format(str(ip_sub)))    
+                f.write("{}\n".format(str(ip_sub)))  
     os.chdir("..")
     return filename
 
